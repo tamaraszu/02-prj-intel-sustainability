@@ -140,18 +140,153 @@ header p {
 }
 
 /* ====================================================
-   SECTION (the grid of timeline cards)
+   TIMELINE SECTION
+   Horizontal scroll on desktop
+   Vertical stack on mobile
 ==================================================== */
+
+/* ====================================================
+   TIMELINE LAYOUT
+==================================================== */
+
 section {
-  max-width: 1160px;  /* Don't stretch too wide on huge screens */
-  margin: 0 auto;     /* Center the section */
-  padding: 3.5rem 2rem 4rem;
-  display: grid;      /* Use CSS Grid to lay out the cards */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  /* ↑ Automatically fills columns that are at least 280px wide.
-       If there's room, it adds more columns. On small screens it stacks to 1 column. */
-  gap: 1.5rem;        /* Space between cards */
+  display: flex;
+  gap: 1.5rem;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 3rem 2rem 4rem;
+
+  scroll-snap-type: x mandatory;
+
+  max-width: 100%;
+}
+
+/* ====================================================
+   CARDS
+   4 visible at a time
+==================================================== */
+
+section > div {
+  flex: 0 0 calc((100% - 4.5rem) / 4);
+  /* 4 cards across with gaps */
+
+  min-width: 260px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+
+  border-radius: 16px;
+
+  padding: 1.6rem 1.75rem 1.75rem;
+
   position: relative;
+  overflow: hidden;
+
+  transition: var(--transition-smooth);
+
+  box-shadow: var(--shadow-card);
+
+  scroll-snap-align: start;
+}
+
+/* ====================================================
+   HOVER EFFECT
+==================================================== */
+
+section > div:hover {
+  transform: translateY(-8px);
+  border-color: var(--card-hover-border);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ====================================================
+   PARAGRAPH ALWAYS VISIBLE
+==================================================== */
+
+section > div p {
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-mid);
+
+  margin-top: 1rem;
+}
+
+/* ====================================================
+   TABLET
+   2 cards visible
+==================================================== */
+
+@media (max-width: 900px) {
+
+  section > div {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+  }
+}
+
+/* ====================================================
+   MOBILE
+   Stack vertically
+==================================================== */
+
+@media (max-width: 600px) {
+
+  section {
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 2rem 1.25rem;
+  }
+
+  section > div {
+    flex: unset;
+    width: 100%;
+  }
+
+  section > div:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* ====================================================
+   TABLET
+==================================================== */
+
+@media (max-width: 900px) {
+  section > div {
+    flex: 0 0 280px;
+  }
+}
+
+/* ====================================================
+   MOBILE
+   Stack vertically
+==================================================== */
+
+@media (max-width: 600px) {
+
+  section {
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 2rem 1.25rem;
+  }
+
+  section > div {
+    width: 100%;
+    flex: unset;
+  }
+
+  /* Keep text visible on mobile */
+  section > div p {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+
+  section > div:hover {
+    transform: translateY(-3px);
+  }
 }
 
 /* ====================================================
