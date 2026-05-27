@@ -158,9 +158,20 @@ section {
 
   padding: 3rem 2rem 4rem;
 
-  scroll-snap-type: x mandatory;
-
   max-width: 100%;
+
+  /* Scroll Snap */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* Better scrolling feel */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Each card snaps into position */
+section > div {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* ====================================================
